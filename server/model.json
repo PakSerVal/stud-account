@@ -1,0 +1,114 @@
+{
+    "dimensions": [
+        {
+            "name": "date",
+            "label": "Date",
+            "levels": [
+                {
+                    "name":"id",
+                    "label":"Id"
+                },
+                {
+                    "name":"year",
+                    "label":"Year"
+                },
+                {
+                    "name":"quarter",
+                    "label":"Quarter"
+                },
+                {
+                    "name":"month",
+                    "label":"Month"
+                },
+                {
+                  "name":"day",
+                  "label":"Day"
+                }
+            ],
+          "hierarchies": [
+            {
+              "name": "date",
+              "label": "Date",
+              "levels": [ "year", "quarter", "month", "day"]
+            }
+          ]
+        },
+        {
+            "name": "status",
+            "label": "Status",
+            "levels": [ {
+                "name": "status",
+                "label": "Status",
+                "attributes": [ "id", "name" ],
+                "label_attribute": "name"
+            } ]
+        },
+        {
+          "name": "course",
+          "label": "Course",
+          "levels": [ {
+            "name": "course",
+            "label": "Course",
+            "attributes": [ "id", "name" ],
+            "label_attribute": "name"
+          } ]
+        }
+    ],
+    "cubes": [
+      {
+        "name": "stud-events",
+        "dimensions": ["status", "course", "date" ],
+        "measures": [
+          {"name": "studentsQuantity"}
+        ],
+        "joins": [
+          {
+            "master": "stud-events.dateId",
+            "detail": "dates.id"
+          },
+          {
+            "master": "stud-events.statusId",
+            "detail": "statuses.id"
+          },
+          {
+            "master": "stud-events.courseId",
+            "detail": "courses.id"
+          }
+        ],
+        "aggregates": [
+          {
+            "name": "Maximum",
+            "function": "max",
+            "measure": "studentsQuantity"
+          },
+          {
+            "name": "Minimum",
+            "function": "min",
+            "measure": "studentsQuantity"
+          },
+          {
+            "name": "record_count",
+            "function": "count"
+          },
+          {
+            "name": "Sum",
+            "function": "sum",
+            "measure": "studentsQuantity"
+          }
+        ],
+        "mappings": {
+          "date.year": "dates.year",
+          "date.quarter": "dates.quarter",
+          "date.month": "dates.month",
+          "date.day": "dates.day",
+
+
+          "status.id": "statuses.id",
+          "status.name": "statuses.statusName",
+
+          "course.id": "courses.id",
+          "course.name": "courses.courseName"
+        }
+      }
+    ]
+}

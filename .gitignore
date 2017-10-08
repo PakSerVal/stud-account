@@ -1,0 +1,6 @@
+/client/.idea
+/client/node_modules/
+/client/dist/
+/client/app/css
+/server/.idea
+/client/e2e

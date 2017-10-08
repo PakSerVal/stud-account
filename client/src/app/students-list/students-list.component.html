@@ -1,0 +1,215 @@
+<div class="container-fluid main-wrap">
+  <div class="row">
+    <div class="col-xs-2 options-left">
+      <h3>Фильтр</h3>
+      <hr>
+      <div class="options-list">
+        <input type="checkbox" id="date-option" class="option-input checkbox form-control"><label for="date-option">Дата</label><br>
+        <input type="checkbox" id="course-option" class="option-input checkbox form-control"><label for="course-option">Курс</label><br>
+        <input type="checkbox" id="status-option" class="option-input checkbox form-control"><label for="status-option">Статус</label><br>
+      </div>
+      <hr>
+      <div class="date-option">
+        <h3 style="text-align: center;">Дата</h3>
+        <my-date-picker [options]="myDatePickerOptions" [(ngModel)]="dateOption" required></my-date-picker>
+        <hr>
+      </div>
+      <div class="course-option">
+        <h3 style="text-align: center;">Курс</h3>
+        <input type="checkbox" class="option-input checkbox form-control"><label>1</label><br>
+        <input type="checkbox" class="option-input checkbox form-control"><label>2</label><br>
+        <input type="checkbox" class="option-input checkbox form-control"><label>3</label><br>
+        <input type="checkbox" class="option-input checkbox form-control"><label>4</label><br>
+        <input type="checkbox" class="option-input checkbox form-control"><label>5</label><br>
+        <hr>
+      </div>
+      <div class="status-option">
+        <h3 style="text-align: center;">Статус</h3>
+        <input type="checkbox" class="option-input checkbox form-control"><label>Зачислен</label><br>
+        <input type="checkbox" class="option-input checkbox form-control"><label>Отчислен</label><br>
+        <input type="checkbox" class="option-input checkbox form-control"><label>Переведён</label><br>
+        <input type="checkbox" class="option-input checkbox form-control"><label>Выпустился</label><br>
+        <hr>
+      </div>
+      <button class="btn-primary btn" style="margin-bottom: 10px">Применить</button>
+    </div>
+    <div class="col-xs-10 students-list">
+      <div class="row options-top">
+        <h3 style="text-align: center">Параметры вывода</h3>
+        <hr>
+        <div class="col-xs-4 columns-option">
+          <h4 style="text-align: center">Столбцы</h4>
+          <input type="checkbox" class="option-input checkbox form-control"><label>Фио</label>
+          <input type="checkbox" class="option-input checkbox form-control"><label>Email</label>
+          <input type="checkbox" class="option-input checkbox form-control"><label>Телефон</label><br>
+          <input type="checkbox" class="option-input checkbox form-control"><label>Адрес</label>
+          <input type="checkbox" class="option-input checkbox form-control"><label>Приказ</label><br>
+          <input type="checkbox" class="option-input checkbox form-control"><label>Форма обучения</label><br>
+          <input type="checkbox" class="option-input checkbox form-control"><label>Баллы ЕГЭ</label>
+        </div>
+        <div class="col-xs-4 sort-option">
+          <h4 style="text-align: center">Сортировка</h4>
+          <label>Сортировать по: </label>
+          <select class="form-control">
+            <option>ФИО</option>
+            <option>Email</option>
+            <option>Телефон</option>
+            <option>Адрес</option>
+          </select>
+        </div>
+        <div class="col-xs-4 export-option">
+          <h4 style="text-align: center">Экспорт</h4>
+          <a href=""><label>Эксопртировать в .doc </label></a><br>
+          <a href=""><label>Эксопртировать в .xls </label></a>
+        </div>
+      </div>
+      <div class="list">
+        <table border="1px">
+          <tr>
+            <th>ФИО</th>
+            <th>ФИО</th>
+            <th>ФИО</th>
+            <th>ФИО</th>
+            <th>ФИО</th>
+            <th>ФИО</th>
+            <th>ФИО</th>
+            <th>ФИО</th>
+            <th>ФИО</th>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+          <tr>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+            <td>ФИО</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
