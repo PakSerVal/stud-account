@@ -1,3 +1,7 @@
+body {
+  font-family: 'Philosopher', sans-serif;
+}
+
 input, textarea {
   outline:none;
 }

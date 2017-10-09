@@ -4,34 +4,90 @@
       <h3>Фильтр</h3>
       <hr>
       <div class="options-list">
-        <input type="checkbox" id="date-option" class="option-input checkbox form-control"><label for="date-option">Дата</label><br>
-        <input type="checkbox" id="course-option" class="option-input checkbox form-control"><label for="course-option">Курс</label><br>
-        <input type="checkbox" id="status-option" class="option-input checkbox form-control"><label for="status-option">Статус</label><br>
+        <input type="checkbox" id="date-option" class="option-input checkbox form-control" (change)="optionsList.date = !optionsList.date"><label for="date-option">Фильтровать по дате</label><br>
+        <input type="checkbox" id="course-option" class="option-input checkbox form-control" (change)="optionsList.course = !optionsList.course"><label for="course-option">Фильтровать по курсу</label><br>
+        <input type="checkbox" id="status-option" class="option-input checkbox form-control" (change)="optionsList.status = !optionsList.status"><label for="status-option">Фильтровать по статусу</label><br>
       </div>
       <hr>
-      <div class="date-option">
+      <div *ngIf="optionsList.date" class="date-option">
         <h3 style="text-align: center;">Дата</h3>
-        <my-date-picker [options]="myDatePickerOptions" [(ngModel)]="dateOption" required></my-date-picker>
+        <label>Период</label>
+        <select [(ngModel)]="datePeriod" class="form-control">
+          <option *ngFor="let datePeriod of datePeriods" [ngValue]="datePeriod">{{datePeriod}}</option>
+        </select>
+        <div *ngIf="datePeriod === 'Год'" style="margin-top: 10px">
+          <label>Выберите год</label>
+          <select class="form-control" [(ngModel)]="dateOptionYear">
+            <option>2015</option>
+            <option>2016</option>
+            <option>2017</option>
+          </select>
+        </div>
+        <div *ngIf="datePeriod === 'Квартал'" style="margin-top: 10px">
+          <label>Выберите год</label>
+          <select class="form-control" [(ngModel)]="dateOptionYear">
+            <option>2015</option>
+            <option>2016</option>
+            <option>2017</option>
+          </select>
+          <label>Выберите квартал</label>
+          <select class="form-control" [(ngModel)]="dateOptionQuarter">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+        </div>
+        <div *ngIf="datePeriod === 'Месяц'" style="margin-top: 10px">
+          <label>Выберите год</label>
+          <select class="form-control" [(ngModel)]="dateOptionYear">
+            <option>2015</option>
+            <option>2016</option>
+            <option>2017</option>
+          </select>
+          <label>Выберите квартал</label>
+          <select class="form-control" [(ngModel)]="dateOptionQuarter">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
+          <label>Выберите месяц</label>
+          <select class="form-control" [(ngModel)]="dateOptionMonth">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+          </select>
+        </div>
+        <div *ngIf="datePeriod === 'День'" style="margin-top: 10px">
+          <label>Выберите день</label>
+          <my-date-picker [options]="myDatePickerOptions" [(ngModel)]="dateOptionDay" required></my-date-picker>
+        </div>
         <hr>
       </div>
-      <div class="course-option">
+      <div *ngIf="optionsList.course" class="course-option">
         <h3 style="text-align: center;">Курс</h3>
-        <input type="checkbox" class="option-input checkbox form-control"><label>1</label><br>
-        <input type="checkbox" class="option-input checkbox form-control"><label>2</label><br>
-        <input type="checkbox" class="option-input checkbox form-control"><label>3</label><br>
-        <input type="checkbox" class="option-input checkbox form-control"><label>4</label><br>
-        <input type="checkbox" class="option-input checkbox form-control"><label>5</label><br>
+        <input type="checkbox" class="option-input checkbox form-control" (change)="courseOption.first = !courseOption.first"><label>1</label><br>
+        <input type="checkbox" class="option-input checkbox form-control" (change)="courseOption.second = !courseOption.second"><label>2</label><br>
+        <input type="checkbox" class="option-input checkbox form-control" (change)="courseOption.third = !courseOption.third"><label>3</label><br>
+        <input type="checkbox" class="option-input checkbox form-control" (change)="courseOption.fourth = !courseOption.fourth"><label>4</label><br>
+        <input type="checkbox" class="option-input checkbox form-control" (change)="courseOption.fifth = !courseOption.fifth"><label>5</label><br>
         <hr>
       </div>
-      <div class="status-option">
+      <div *ngIf="optionsList.status" class="status-option">
         <h3 style="text-align: center;">Статус</h3>
-        <input type="checkbox" class="option-input checkbox form-control"><label>Зачислен</label><br>
-        <input type="checkbox" class="option-input checkbox form-control"><label>Отчислен</label><br>
-        <input type="checkbox" class="option-input checkbox form-control"><label>Переведён</label><br>
-        <input type="checkbox" class="option-input checkbox form-control"><label>Выпустился</label><br>
+        <input type="checkbox" class="option-input checkbox form-control" (change)="statusOption.admis = !statusOption.admis"><label>Зачислен</label><br>
+        <input type="checkbox" class="option-input checkbox form-control" (change)="statusOption.depart = !statusOption.depart"><label>Отчислен</label><br>
+        <input type="checkbox" class="option-input checkbox form-control" (change)="statusOption.trans = !statusOption.trans"><label>Переведён</label><br>
+        <input type="checkbox" class="option-input checkbox form-control" (change)="statusOption.grad = !statusOption.grad"><label>Выпустился</label><br>
         <hr>
       </div>
-      <button class="btn-primary btn" style="margin-bottom: 10px">Применить</button>
+      <button *ngIf="optionsList.course || optionsList.date || optionsList.status" class="btn-primary btn" style="margin-bottom: 10px" (click)="applyOptions()">Применить</button>
     </div>
     <div class="col-xs-10 students-list">
       <div class="row options-top">
@@ -39,22 +95,35 @@
         <hr>
         <div class="col-xs-4 columns-option">
           <h4 style="text-align: center">Столбцы</h4>
-          <input type="checkbox" class="option-input checkbox form-control"><label>Фио</label>
-          <input type="checkbox" class="option-input checkbox form-control"><label>Email</label>
-          <input type="checkbox" class="option-input checkbox form-control"><label>Телефон</label><br>
-          <input type="checkbox" class="option-input checkbox form-control"><label>Адрес</label>
-          <input type="checkbox" class="option-input checkbox form-control"><label>Приказ</label><br>
-          <input type="checkbox" class="option-input checkbox form-control"><label>Форма обучения</label><br>
-          <input type="checkbox" class="option-input checkbox form-control"><label>Баллы ЕГЭ</label>
+          <div class="row">
+            <div class="col-xs-6">
+              <div *ngFor="let column of studentColumns.slice(0, studentColumns.length/2 + 1)">
+                <input type="checkbox" class="option-input checkbox form-control"
+                       [checked]="studentTableColumnsView[column]"
+                       (change)="studentTableColumnsView[column] = !studentTableColumnsView[column]"
+                >
+                <label>{{column}}</label>
+              </div>
+            </div>
+            <div class="col-xs-6" style="padding: 0;">
+              <div *ngFor="let column of studentColumns.slice(studentColumns.length/2 + 1, studentColumns.length)">
+                <input type="checkbox" class="option-input checkbox form-control"
+                       [checked]="studentTableColumnsView[column]"
+                       (change)="studentTableColumnsView[column] = !studentTableColumnsView[column]"
+                >
+                <label>{{column}}</label>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-xs-4 sort-option">
+        <div class="col-xs-4 sort-option" >
           <h4 style="text-align: center">Сортировка</h4>
           <label>Сортировать по: </label>
-          <select class="form-control">
-            <option>ФИО</option>
-            <option>Email</option>
-            <option>Телефон</option>
-            <option>Адрес</option>
+          <select class="form-control" [(ngModel)]="sortOption" (change)="sort()">
+            <option [ngValue]="'fio'">ФИО</option>
+            <option [ngValue]="'course'">Курс</option>
+            <option [ngValue]="'status'">Статус</option>
+            <option [ngValue]="'score'">Баллы ЕГЭ</option>
           </select>
         </div>
         <div class="col-xs-4 export-option">
@@ -64,150 +133,20 @@
         </div>
       </div>
       <div class="list">
+        <p-paginator rows="10" totalRecords="100" (onPageChange)="paginate($event)"></p-paginator>
         <table border="1px">
           <tr>
-            <th>ФИО</th>
-            <th>ФИО</th>
-            <th>ФИО</th>
-            <th>ФИО</th>
-            <th>ФИО</th>
-            <th>ФИО</th>
-            <th>ФИО</th>
-            <th>ФИО</th>
-            <th>ФИО</th>
+            <ng-container *ngFor="let column of studentColumns">
+              <th *ngIf="studentTableColumnsView[column]">{{column}}</th>
+            </ng-container>
           </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
-          <tr>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-            <td>ФИО</td>
-          </tr>
+          <ng-container *ngFor="let student of studentList">
+            <tr>
+              <ng-container *ngFor="let column of studentColumns">
+                <td *ngIf="studentTableColumnsView[column]">{{ student[studentsColumnMap[column]]}}</td>
+              </ng-container>
+            </tr>
+          </ng-container>
         </table>
       </div>
     </div>

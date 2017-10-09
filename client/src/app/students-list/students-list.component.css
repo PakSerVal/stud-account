@@ -1,3 +1,7 @@
+body {
+
+}
+
 input[type=checkbox] {
   outline:none;
   margin-bottom: 3px;
@@ -34,9 +38,9 @@ td, th {
 }
 
 .options-top {
-  height: 300px;
+
+  height: 315px;
   border: 1px solid #fe7f18;
-  border-left: none;
   border-radius: 10px;
 }
 
@@ -131,4 +135,5 @@ td, th {
 
 .options-list {
   text-align: left;
+  font-size: 10px;
 }

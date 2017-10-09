@@ -9,13 +9,13 @@ class MyDB extends SQLite3 {
 function createTables() {
     $db = new MyDB();
     $sql = "
-            drop table if exists `stud-events`; drop table if exists `courses`; drop table if exists `dates`; drop table if exists `statuses`;drop table if exists `students`;
+            drop table if exists `stud-events`; drop table if exists `courses`; drop table if exists `dates`; drop table if exists `statuses`;drop table if exists `student`;
             
             CREATE TABLE `stud-events` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `dateId` INTEGER, `statusId` INTEGER, `courseId` INTEGER, `studentsQuantity` INTEGER );
             CREATE TABLE `courses` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `courseName` TEXT );
             CREATE TABLE `dates` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `year` INTEGER, `quarter` INTEGER, `month` INTEGER, `day` INTEGER );
             CREATE TABLE `statuses` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `statusName` TEXT );
-            CREATE TABLE `students` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `fio` TEXT, `email` TEXT, `phone` TEXT, `address` TEXT, `order` TEXT, `studyType` TEXT, `score` INTEGER, `factId` INTEGER );
+            CREATE TABLE `student` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `fio` TEXT, `email` TEXT, `phone` TEXT, `address` TEXT, `status` TEXT, `course` TEXT, `order_num` TEXT, `study_type` TEXT, `score` INTEGER, `fact_id` INTEGER );
     ";
     @$db->exec($sql);
     $db->close();
@@ -75,32 +75,25 @@ function insertStudents(){
         echo "Импорт студентов...";
         fgetcsv($handle, 1000, ",");
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-            $order = $data[1];
-            $date = explode(".", explode(" ", $order)[1]);
+            $order_num   = $data[1];
+            $date        = explode(".", explode(" ", $order_num)[1]);
             $dateDay     = $date[0];
             $dateMonth   = $date[1];
             $dateYear    = $date[2];
             $dateQuarter = intval(($dateMonth + 2) / 3);
-            $dateId = getOrCreate("dates", ["year" => $dateYear, "quarter" => $dateQuarter, "month" => $dateMonth, "day" => $dateDay]);
-
-            $status = $data[7];
-            $statusId = getOrCreate("statuses", ["statusName" => $status]);
-
-            $course = $data[8];
-            $courseId = getOrCreate("courses", ["courseName" => $course]);
-
-            $fio = $data[0];
-            $email = $data[2];
-            $phone = $data[3];
-            $address = $data[4];
-            $studyType = $data[5];
-            $score = $data[6];
-
-            $factId = insertFact($dateId, $statusId, $courseId);
-
-            getOrCreate("students", compact("fio","order", "email", "phone", "address", "studyType", "score", "factId"));
-
-
+            $dateId      = getOrCreate("dates", ["year" => $dateYear, "quarter" => $dateQuarter, "month" => $dateMonth, "day" => $dateDay]);
+            $status      = $data[7];
+            $statusId    = getOrCreate("statuses", ["statusName" => $status]);
+            $course      = $data[8];
+            $courseId    = getOrCreate("courses", ["courseName" => $course]);
+            $fio         = $data[0];
+            $email       = $data[2];
+            $phone       = $data[3];
+            $address     = $data[4];
+            $study_type  = $data[5];
+            $score       = $data[6];
+            $fact_id     = insertFact($dateId, $statusId, $courseId);
+            getOrCreate("student", compact("fio","order_num", "email", "phone", "address","status", "course", "study_type", "score", "fact_id"));
         }
     }
 }

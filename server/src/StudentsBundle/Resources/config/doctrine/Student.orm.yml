@@ -1,0 +1,33 @@
+StudentsBundle\Entity\Student:
+    type: entity
+    table: null
+    repositoryClass: StudentsBundle\Repository\StudentRepository
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        fio:
+            type: text
+        email:
+            type: text
+        phone:
+            type: text
+        address:
+            type: text
+        status:
+            type: text
+        course:
+            type: text
+        orderNum:
+            type: text
+            column: order_num
+        studyType:
+            type: text
+        score:
+            type: text
+        factId:
+            type: integer
+    lifecycleCallbacks: {  }

@@ -1,0 +1,11 @@
+get-all-students:
+    path:     /get-all-students/{page}
+    defaults: { _controller: StudentsBundle:Api:getAllStudents }
+
+get-sorted-students:
+    path: /get-sorted-students/{page}/{sortOption}
+    defaults: { _controller: StudentsBundle:Api:getSortedStudents }
+
+get-students-by-filter:
+    path: /get-students-by-filter/
+    defaults: { _controller: StudentsBundle:Api:getStudentsByFilter }
