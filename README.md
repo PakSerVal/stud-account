@@ -71,5 +71,30 @@ sudo n 6.9.0
 <pre>
 ng build -prod
 </pre>
+Перейти в директорию сервера и установить пакеты  
+<pre>
+sudo apt install composer
+sudo apt-get install php7.0-xml
+cd ../server && composer install
+</pre>
+Настроить nginx
+открыть файл hosts 
+<pre>sudo gedit /etc/hosts</pre>
+и добавить
+<pre>
+127.0.0.1	sa.ru
+</pre>
+скопировать конфиг nginx 
+<pre>sudo cp ../sa.conf /etc/nginx/sites-available</pre>
+открыть файл конфига
+<pre>sudo gedit /etc/nginx/sites-available/sa.conf </pre>
+изменить пути "/home/sergo/www/stud-account/server". Вместо моего имени (sergey) ввести имя пользователя
+сделать симлинк и перезагрузить nginx
+<pre>
+sudo ln -s /etc/nginx/sites-available/sa.conf /etc/nginx/sites-enabled/
+sudo service nginx restart
+</pre>
+Заёти в браузере по sa.ru
+
 
 
