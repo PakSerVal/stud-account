@@ -54,14 +54,21 @@ slicer serve slicer.ini
 
 
 <h1>Установка клиента программы</h1>
-<pre>
-sudo apt-get install npm
-sudo apt-get install nodejs
-sudo npm install -g @angular/cli
-</pre>
-Перейти в директорию с клиентом и скомпилить клиент
+Установка npm, nodem angular-cli
 <pre>
 cd www/stud-account/client
-ng build --prod
+sudo apt-get install npm
+sudo apt-get install nodejs
+sudo ln -s /usr/bin/nodejs /usr/bin/node
+sudo npm install -g @angular/cli
+npm install
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n 6.9.0
 </pre>
+Скомпилировать клиент 
+<pre>
+ng build -prod
+</pre>
+
 
