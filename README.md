@@ -1,4 +1,5 @@
-Для разворачивания нужна будет ubuntu 16.04. Можно развернуть на виртуалке. Вот образ. На ubuntu нужно настроить выход в интернет (network adapter – NAT).
+Для разворачивания нужна будет ubuntu. Можно развернуть на виртуалке. Вот 
+<a href="http://releases.ubuntu.com/16.04/ubuntu-16.04.3-desktop-amd64.iso">образ</a>. На ubuntu нужно настроить выход в интернет (network adapter – NAT).
 
 <h1>Установка nginx, php-fpm, php7.0, python, sqlite3</h1>
 Заходим в систему, открываем терминал ctrl+alt+t и вводим комманды
