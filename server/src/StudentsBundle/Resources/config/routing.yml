@@ -1,11 +1,19 @@
-get-all-students:
-    path:     /get-all-students/{page}
-    defaults: { _controller: StudentsBundle:Api:getAllStudents }
-
-get-sorted-students:
-    path: /get-sorted-students/{page}/{sortOption}
-    defaults: { _controller: StudentsBundle:Api:getSortedStudents }
-
 get-students-by-filter:
-    path: /get-students-by-filter/
+    path: /get-students-by-filter/{page}/{sortOption}
     defaults: { _controller: StudentsBundle:Api:getStudentsByFilter }
+
+get-students-total-count:
+    path: /get-students-total-count/
+    defaults: { _controller: StudentsBundle:Api:getStudentsTotalCount }
+
+get-min-and-max-date:
+        path: /get-min-and-max-date/
+        defaults: { _controller: StudentsBundle:Api:getMinAndMaxDate }
+
+export-doc:
+    path: /export-doc/{page}/{sortOption}
+    defaults: { _controller: StudentsBundle:Api:exportDoc }
+
+export-xls:
+    path: /export-xls/{page}/{sortOption}
+    defaults: { _controller: StudentsBundle:Api:exportXls }

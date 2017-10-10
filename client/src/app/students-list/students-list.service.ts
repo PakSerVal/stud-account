@@ -10,17 +10,37 @@ export class StudentsListService {
 
   constructor(private http: Http) { }
 
-  public getSortedStudents(page: number, sortOption: string) {
-    const students = this.http.get('/api/get-sorted-students/' + page + '/' + sortOption)
-      .map(this.extractStudents);
-    return students;
-  }
-
-  public getStudentsByFilter(filter): Observable<Student[]> {
+  public getStudentsTotalCount(filter): Observable<number> {
     const body = JSON.stringify(filter);
     const headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-    return this.http.post('/api/get-students-by-filter/', body, { headers: headers })
+    return this.http.post('/api/get-students-total-count/', body, { headers: headers })
+      .map(
+        function (response: Response) {
+          const res = response.json();
+          return res[0].studentsTotalCount;
+        }
+      );
+  }
+
+  public getStudentsByFilter(page, sortOption, filter): Observable<Student[]> {
+    const body = JSON.stringify(filter);
+    const headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+    return this.http.post('/api/get-students-by-filter/' + page + '/' + sortOption, body, { headers: headers })
       .map(this.extractStudents);
+  }
+
+  public exportToDoc(page, sortOption, filter) {
+    const body = JSON.stringify(filter);
+    const headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+    this.http.post('/api/export-to-doc/' + page + '/' + sortOption, body, { headers: headers });
+  }
+
+  public getMinAndMaxDate(): Observable<any> {
+    return this.http.get('/api/get-min-and-max-date')
+      .map(function (response: Response) {
+        const res = response.json();
+        return res[0];
+      });
   }
 
   private extractStudents(response: Response) {
