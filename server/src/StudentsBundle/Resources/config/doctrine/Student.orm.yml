@@ -15,8 +15,6 @@ StudentsBundle\Entity\Student:
             type: text
         phone:
             type: text
-        address:
-            type: text
         status:
             type: text
         course:

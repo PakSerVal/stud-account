@@ -27,10 +27,6 @@ class Student
      */
     private $phone;
 
-    /**
-     * @var string
-     */
-    private $address;
 
     /**
      * @var string
@@ -147,30 +143,6 @@ class Student
     public function getPhone()
     {
         return $this->phone;
-    }
-
-    /**
-     * Set address
-     *
-     * @param string $address
-     *
-     * @return Student
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string
-     */
-    public function getAddress()
-    {
-        return $this->address;
     }
 
     /**

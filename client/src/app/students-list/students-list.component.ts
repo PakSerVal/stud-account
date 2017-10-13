@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {IMyDpOptions, IMyDateRange} from 'mydatepicker';
 import { StudentsListService } from './students-list.service';
 import {Student} from './student';
+import {Paginator} from 'primeng/primeng';
 
 @Component({
   selector: 'app-students-list',
@@ -10,7 +11,9 @@ import {Student} from './student';
 })
 export class StudentsListComponent implements OnInit {
 
-  filter = {};
+  @ViewChild('pg') paginator: Paginator;
+
+  filter         = {};
   filterDateKeys = [];
 
   totalCountStudents: number;
@@ -105,6 +108,7 @@ export class StudentsListComponent implements OnInit {
       delete this.filter['date'];
       this.filterDateKeys = [];
     }
+    this.paginator.changePage(0);
     this.getStudentList();
     this.getTotalCount();
   }
@@ -112,7 +116,7 @@ export class StudentsListComponent implements OnInit {
     this.getStudentList();
   }
   paginate(event) {
-    this.page = event.page;
+    this.page = event.page + 1;
     this.getStudentList();
   }
   getStudentList() {

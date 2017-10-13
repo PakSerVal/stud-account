@@ -15,7 +15,7 @@ function createTables() {
             CREATE TABLE `courses` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `courseName` TEXT );
             CREATE TABLE `dates` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `year` INTEGER, `quarter` INTEGER, `month` INTEGER, `day` INTEGER );
             CREATE TABLE `statuses` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `statusName` TEXT );
-            CREATE TABLE `student` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `fio` TEXT, `email` TEXT, `phone` TEXT, `address` TEXT, `status` TEXT, `course` TEXT, `order_num` TEXT, `study_type` TEXT, `score` INTEGER, `fact_id` INTEGER );
+            CREATE TABLE `student` ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `fio` TEXT, `email` TEXT, `phone` TEXT, `status` TEXT, `course` TEXT, `order_num` TEXT, `study_type` TEXT, `score` INTEGER, `fact_id` INTEGER );
     ";
     @$db->exec($sql);
     $db->close();
@@ -82,18 +82,17 @@ function insertStudents(){
             $dateYear    = $date[2];
             $dateQuarter = intval(($dateMonth + 2) / 3);
             $dateId      = getOrCreate("dates", ["year" => $dateYear, "quarter" => $dateQuarter, "month" => $dateMonth, "day" => $dateDay]);
-            $status      = $data[7];
+            $status      = $data[6];
             $statusId    = getOrCreate("statuses", ["statusName" => $status]);
-            $course      = $data[8];
+            $course      = $data[7];
             $courseId    = getOrCreate("courses", ["courseName" => $course]);
             $fio         = $data[0];
             $email       = $data[2];
             $phone       = $data[3];
-            $address     = $data[4];
-            $study_type  = $data[5];
-            $score       = $data[6];
+            $study_type  = $data[4];
+            $score       = $data[5];
             $fact_id     = insertFact($dateId, $statusId, $courseId);
-            getOrCreate("student", compact("fio","order_num", "email", "phone", "address","status", "course", "study_type", "score", "fact_id"));
+            getOrCreate("student", compact("fio","order_num", "email", "phone","status", "course", "study_type", "score", "fact_id"));
         }
     }
 }

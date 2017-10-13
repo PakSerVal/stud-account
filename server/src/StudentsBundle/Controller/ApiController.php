@@ -13,24 +13,33 @@ class ApiController extends Controller
 {
     public function getStudentsByFilterAction($page, $sortOption, Cube $cube)
     {
-        $date = $cube->getMinAndMaxDate();
         $filter  = json_decode(file_get_contents('php://input'), true);
-        $factKey = "__fact_key__";
-        $studentFacts = $cube->getFacts($filter);
-        $studentFactIds = [];
-        foreach ($studentFacts as $studentFact) {
-            $studentFactIds[] = $studentFact->$factKey;
-        }
-        $limit = 100;
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository(Student::class)->createQueryBuilder('x')
-            ->select()
-            ->andWhere('x.factId IN (:studentFactIds)')
-            ->setFirstResult($limit * ($page - 1))
-            ->setMaxResults($limit)
-            ->orderBy("x.$sortOption", 'ASC')
-            ->setParameter('studentFactIds', $studentFactIds)
-            ->getQuery();
+        $limit = 100;
+        if (!empty($filter)) {
+            $factKey = "__fact_key__";
+            $studentFacts = $cube->getFacts($filter);
+            $studentFactIds = [];
+            foreach ($studentFacts as $studentFact) {
+                $studentFactIds[] = $studentFact->$factKey;
+            }
+            $query = $em->getRepository(Student::class)->createQueryBuilder('x')
+                ->select()
+                ->andWhere('x.factId IN (:studentFactIds)')
+                ->setFirstResult($limit * ($page - 1))
+                ->setMaxResults($limit)
+                ->orderBy("x.$sortOption", 'ASC')
+                ->setParameter('studentFactIds', $studentFactIds)
+                ->getQuery();
+
+        } else {
+            $query = $em->getRepository(Student::class)->createQueryBuilder('x')
+                ->select()
+                ->setFirstResult($limit * ($page - 1))
+                ->setMaxResults($limit)
+                ->orderBy("x.$sortOption", 'ASC')
+                ->getQuery();
+        }
         $paginator = new Paginator($query, $fetchJoinCollection = false);
         $response = new Response();
         $students = [];
@@ -40,7 +49,6 @@ class ApiController extends Controller
                 "fio"       => $studentObject->getFio(),
                 "email"     => $studentObject->getEmail(),
                 "phone"     => $studentObject->getPhone(),
-                "address"   => $studentObject->getAddress(),
                 "status"    => $studentObject->getStatus(),
                 "course"    => $studentObject->getCourse(),
                 "orderNum"  => $studentObject->getOrderNum(),

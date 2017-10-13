@@ -139,7 +139,7 @@
       </div>
       <div class="list">
         <h3>Всего найдено: {{totalCountStudents}}</h3>
-        <p-paginator rows="100" totalRecords="{{totalCountStudents}}" (onPageChange)="paginate($event)"></p-paginator>
+        <p-paginator #pg rows="100" totalRecords="{{totalCountStudents}}" (onPageChange)="paginate($event)"></p-paginator>
         <table border="1px">
           <tr>
             <ng-container *ngFor="let column of studentColumns">
