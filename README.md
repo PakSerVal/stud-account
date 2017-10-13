@@ -12,6 +12,7 @@ sudo add-apt-repository ppa:ondrej/php
 sudo apt update
 sudo apt-get install php7.0-cli php7.0-common php7.0-mysql php7.0-fpm php-pear
 sudo apt-get install php7.0-sqlite3
+sudo apt-get install php7.0-zip
 </pre>
 
 <h1>Установка cubes и cubesviewer</h1> 
@@ -76,6 +77,7 @@ ng build -prod
 sudo apt install composer
 sudo apt-get install php7.0-xml
 cd ../server && composer install
+sudo chmod -R 777 *
 </pre>
 Настроить nginx
 открыть файл hosts 
