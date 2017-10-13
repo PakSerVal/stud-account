@@ -47,7 +47,7 @@ cd ../.. && pip install -r requirements.txt
 <pre>python manage.py runserver 0.0.0.0:8000</pre>
 Открыть терминал в новом окне. Этот не закрывать.
 <pre>
-cd www/stud-account/sercer
+cd www/stud-account/server
 slicer serve slicer.ini
 </pre>
 
@@ -67,7 +67,7 @@ sudo npm cache clean -f
 sudo npm install -g n
 sudo n 6.9.0
 </pre>
-Скомпилировать клиент 
+Скомпилить клиент 
 <pre>
 ng build -prod
 </pre>
@@ -94,7 +94,7 @@ cd ../server && composer install
 sudo ln -s /etc/nginx/sites-available/sa.conf /etc/nginx/sites-enabled/
 sudo service nginx restart
 </pre>
-Заёти в браузере по sa.ru
+Зайти в браузере по sa.ru
 
 
 
