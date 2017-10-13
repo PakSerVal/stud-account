@@ -1,8 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {IMyDpOptions, IMyDateRange} from 'mydatepicker';
+import {IMyDpOptions} from 'mydatepicker';
 import { StudentsListService } from './students-list.service';
 import {Student} from './student';
 import {Paginator} from 'primeng/primeng';
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-students-list',
@@ -32,15 +33,15 @@ export class StudentsListComponent implements OnInit {
     dateFormat: 'dd.mm.yyyy',
   };
   datePeriods = ['Год', 'Квартал', 'Месяц', 'День'];
-  datePeriod = 'Год';
+  datePeriod  = 'Год';
 
   optionsList = {date: false, course: false, status: false};
   dateOptionYear;
   dateOptionQuarter = '1';
-  dateOptionMonth = '2';
-  dateOptionDay = '2';
-  statusOption = {admis: false, depart: false, trans: false, grad: false};
-  courseOption = {first: false, second: false, third: false, fourth: false, fifth: false};
+  dateOptionMonth   = '2';
+  dateOptionDay     = '2';
+  statusOption      = {admis: false, depart: false, trans: false, grad: false};
+  courseOption      = {first: false, second: false, third: false, fourth: false, fifth: false};
 
   studentColumns = ['ФИО', 'Email', 'Телефон', 'Статус', 'Курс', 'Приказ', 'Форма обучения', 'Баллы ЕГЭ'];
   studentTableColumnsView = {
@@ -53,6 +54,8 @@ export class StudentsListComponent implements OnInit {
   };
 
   sortOption = 'fio';
+
+  exportColumns = [];
 
   studentList: Student[];
   constructor(private studentService: StudentsListService) { }
@@ -143,8 +146,15 @@ export class StudentsListComponent implements OnInit {
       }
     );
   }
-
   onChangeQuarter() {
     this.dateOptionMonth = this.monthesAvailable[this.dateOptionQuarter][0];
+  }
+  prepareExportColumns() {
+    this.exportColumns = [];
+    for (const columnName in this.studentTableColumnsView) {
+      if (this.studentTableColumnsView[columnName]) {
+        this.exportColumns.push(columnName);
+      }
+    }
   }
 }

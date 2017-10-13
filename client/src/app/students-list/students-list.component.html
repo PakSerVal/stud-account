@@ -1,5 +1,6 @@
 <div class="container-fluid main-wrap">
   <div class="row">
+    <!--Параметры слева-->
     <div class="col-xs-2 options-left">
       <h3>Фильтр</h3>
       <hr>
@@ -72,10 +73,13 @@
       </div>
       <button class="btn-primary btn" style="margin-bottom: 10px" (click)="applyOptions()">Применить</button>
     </div>
+    <!--Параметры сверху и таблица студентов-->
     <div class="col-xs-10 students-list">
+      <!--Параметры сверху-->
       <div class="row options-top">
         <h3 style="text-align: center">Параметры вывода</h3>
         <hr>
+        <!--Столбцы-->
         <div class="col-xs-4 columns-option">
           <h4 style="text-align: center">Столбцы</h4>
           <div class="row">
@@ -99,6 +103,7 @@
             </div>
           </div>
         </div>
+        <!--Сортировка-->
         <div class="col-xs-4 sort-option" >
           <h4 style="text-align: center">Сортировка</h4>
           <label>Сортировать по: </label>
@@ -109,9 +114,10 @@
             <option [ngValue]="'score'">Баллы ЕГЭ</option>
           </select>
         </div>
+        <!--Экспорт-->
         <div class="col-xs-4 export-option">
           <h4 style="text-align: center">Экспорт</h4>
-          <form ngNoForm action="http://sa.ru/api/export-doc/{{page}}/{{sortOption}}" target="_blank" method="POST">
+          <form ngNoForm action="http://sa.ru/api/export-doc/{{page}}/{{sortOption}}" target="_blank" method="POST" (click)="prepareExportColumns()">
             <ng-container *ngFor="let dateKey of filterDateKeys;">
               <input type="hidden" name="date[{{dateKey}}]" value="{{filter['date'][dateKey]}}">
             </ng-container>
@@ -120,10 +126,13 @@
             </ng-container>
             <ng-container *ngFor="let course of filter['course']; let i = index;">
               <input type="hidden" name="course[{{i}}]" value="{{course}}">
+            </ng-container>
+            <ng-container *ngFor="let column of exportColumns; let i = index;">
+              <input type="hidden" name="column[{{i}}]" value="{{column}}">
             </ng-container>
             <input type="submit" value="Эксопртировать в .doc" class="btn btn-link">
           </form>
-          <form ngNoForm action="http://sa.ru/api/export-xls/{{page}}/{{sortOption}}" target="_blank" method="POST">
+          <form ngNoForm action="http://sa.ru/api/export-xls/{{page}}/{{sortOption}}" target="_blank" method="POST" (click)="prepareExportColumns()">
             <ng-container *ngFor="let dateKey of filterDateKeys;">
               <input type="hidden" name="date[{{dateKey}}]" value="{{filter['date'][dateKey]}}">
             </ng-container>
@@ -132,6 +141,9 @@
             </ng-container>
             <ng-container *ngFor="let course of filter['course']; let i = index;">
               <input type="hidden" name="course[{{i}}]" value="{{course}}">
+            </ng-container>
+            <ng-container *ngFor="let column of exportColumns; let i = index;">
+              <input type="hidden" name="column[{{i}}]" value="{{column}}">
             </ng-container>
             <input type="submit" value="Эксопртировать в .xls" class="btn btn-link">
           </form>

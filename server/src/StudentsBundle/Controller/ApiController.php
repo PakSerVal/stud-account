@@ -104,25 +104,57 @@ class ApiController extends Controller
         $fancyTableFontStyle = array('bold' => false, 'size' => 10);
         $phpWord->addTableStyle($fancyTableStyleName, $fancyTableStyle, $fancyTableFirstRowStyle);
         $table = $section->addTable($fancyTableStyleName);
+
+        $headers = $filter["column"];
+        $studentFields = [];
+        $studentFieldsMap = [
+            "ФИО"            => "fio",
+            "Email"          => "email",
+            "Телефон"        => "phone",
+            "Статус"         => "status",
+            "Курс"           => "course",
+            "Приказ"         => "orderNum",
+            "Форма обучения" => "studyType",
+            "Баллы ЕГЭ"      => "score"
+        ];
+        $studentCellWidthMap = [
+            "ФИО"            => 1500,
+            "Email"          => 1500,
+            "Телефон"        => 1400,
+            "Статус"         => 1400,
+            "Курс"           => 500,
+            "Приказ"         => 1300,
+            "Форма обучения" => 1300,
+            "Баллы ЕГЭ"      => 700
+        ];
         $table->addRow(300);
-        $table->addCell(1500, $fancyTableCellStyle)->addText('ФИО', $fancyTableFontStyle);
-        $table->addCell(1500, $fancyTableCellStyle)->addText('Email', $fancyTableFontStyle);
-        $table->addCell(1400, $fancyTableCellStyle)->addText('Телефон', $fancyTableFontStyle);
-        $table->addCell(1400, $fancyTableCellStyle)->addText('Статус', $fancyTableFontStyle);
-        $table->addCell(500, $fancyTableCellStyle)->addText('Курс', $fancyTableFontStyle);
-        $table->addCell(1300, $fancyTableCellStyle)->addText('Приказ', $fancyTableFontStyle);
-        $table->addCell(1300, $fancyTableCellStyle)->addText('Форма обучения', $fancyTableFontStyle);
-        $table->addCell(700, $fancyTableCellStyle)->addText('Баллы ЕГЭ', $fancyTableFontStyle);
+        foreach ($headers as $header) {
+            $table->addCell($studentCellWidthMap[$header], $fancyTableCellStyle)->addText($header, $fancyTableFontStyle);
+        }
+//        $table->addCell(1500, $fancyTableCellStyle)->addText('ФИО', $fancyTableFontStyle);
+//        $table->addCell(1500, $fancyTableCellStyle)->addText('Email', $fancyTableFontStyle);
+//        $table->addCell(1400, $fancyTableCellStyle)->addText('Телефон', $fancyTableFontStyle);
+//        $table->addCell(1400, $fancyTableCellStyle)->addText('Статус', $fancyTableFontStyle);
+//        $table->addCell(500, $fancyTableCellStyle)->addText('Курс', $fancyTableFontStyle);
+//        $table->addCell(1300, $fancyTableCellStyle)->addText('Приказ', $fancyTableFontStyle);
+//        $table->addCell(1300, $fancyTableCellStyle)->addText('Форма обучения', $fancyTableFontStyle);
+//        $table->addCell(700, $fancyTableCellStyle)->addText('Баллы ЕГЭ', $fancyTableFontStyle);
         foreach ($students as $student) {
             $table->addRow(300);
-            $table->addCell(1500, $fancyTableCellStyle)->addText($student->getFio(), $fancyTableFontStyle);
-            $table->addCell(1500, $fancyTableCellStyle)->addText($student->getEmail(), $fancyTableFontStyle);
-            $table->addCell(1400, $fancyTableCellStyle)->addText($student->getPhone(), $fancyTableFontStyle);
-            $table->addCell(1400, $fancyTableCellStyle)->addText($student->getStatus(), $fancyTableFontStyle);
-            $table->addCell(500,  $fancyTableCellStyle)->addText($student->getCourse(), $fancyTableFontStyle);
-            $table->addCell(1300, $fancyTableCellStyle)->addText($student->getOrderNum(), $fancyTableFontStyle);
-            $table->addCell(1300, $fancyTableCellStyle)->addText($student->getStudyType(), $fancyTableFontStyle);
-            $table->addCell(700,  $fancyTableCellStyle)->addText($student->getScore(), $fancyTableFontStyle);
+            foreach ($headers as $header) {
+                $table->addCell($studentCellWidthMap[$header], $fancyTableCellStyle)->addText(
+                    call_user_func([$student, "get" . ucfirst($studentFieldsMap[$header])]),
+                    $fancyTableFontStyle
+                );
+            }
+//            $table->addCell(1500, $fancyTableCellStyle)->addText($student->getFio(), $fancyTableFontStyle);
+//            $table->addCell(1500, $fancyTableCellStyle)->addText($student->getEmail(), $fancyTableFontStyle);
+//            $table->addCell(1400, $fancyTableCellStyle)->addText($student->getPhone(), $fancyTableFontStyle);
+//            $table->addCell(1400, $fancyTableCellStyle)->addText($student->getStatus(), $fancyTableFontStyle);
+//            $table->addCell(500,  $fancyTableCellStyle)->addText($student->getCourse(), $fancyTableFontStyle);
+//            $table->addCell(1300, $fancyTableCellStyle)->addText($student->getOrderNum(), $fancyTableFontStyle);
+//            $table->addCell(1300, $fancyTableCellStyle)->addText($student->getStudyType(), $fancyTableFontStyle);
+//            $table->addCell(700,  $fancyTableCellStyle)->addText($student->getScore(), $fancyTableFontStyle);
         }
         // Saving the document
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
@@ -180,8 +212,20 @@ class ApiController extends Controller
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(
             \PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
 
-        $headers = ['ФИО', 'Email', 'Телефон', 'Статус', 'Курс', 'Приказ', 'Форма обучения', 'баллы ЕГЭ'];
-        $studentFields = ['fio', 'email', 'phone', 'status', 'course', 'orderNum', 'studyType', 'score'];
+        $headers = $filter["column"];
+        $studentFieldsMap = [
+            "ФИО"            => "fio",
+            "Email"          => "email",
+            "Телефон"        => "phone",
+            "Статус"         => "status",
+            "Курс"           => "course",
+            "Приказ"         => "orderNum",
+            "Форма обучения" => "studyType",
+            "Баллы ЕГЭ"      => "score"
+        ];
+        foreach ($headers as $header) {
+            $studentFields[] = $studentFieldsMap[$header];
+        }
 
         for ($i = 0; $i < count($headers); $i++) {
             $sheet->setCellValueByColumnAndRow(
