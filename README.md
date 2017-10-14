@@ -12,6 +12,7 @@ sudo add-apt-repository ppa:ondrej/php
 sudo apt update
 sudo apt-get install php7.0-cli php7.0-common php7.0-mysql php7.0-fpm php-pear
 sudo apt-get install php7.0-sqlite3
+sudo apt-get install php7.0-zip
 </pre>
 
 <h1>Установка cubes и cubesviewer</h1> 
@@ -47,7 +48,7 @@ cd ../.. && pip install -r requirements.txt
 <pre>python manage.py runserver 0.0.0.0:8000</pre>
 Открыть терминал в новом окне. Этот не закрывать.
 <pre>
-cd www/stud-account/sercer
+cd www/stud-account/server
 slicer serve slicer.ini
 </pre>
 
@@ -67,7 +68,7 @@ sudo npm cache clean -f
 sudo npm install -g n
 sudo n 6.9.0
 </pre>
-Скомпилировать клиент 
+Скомпилить клиент 
 <pre>
 ng build -prod
 </pre>
@@ -76,6 +77,7 @@ ng build -prod
 sudo apt install composer
 sudo apt-get install php7.0-xml
 cd ../server && composer install
+sudo chmod -R 777 *
 </pre>
 Настроить nginx
 открыть файл hosts 
@@ -94,7 +96,7 @@ cd ../server && composer install
 sudo ln -s /etc/nginx/sites-available/sa.conf /etc/nginx/sites-enabled/
 sudo service nginx restart
 </pre>
-Заёти в браузере по sa.ru
+Зайти в браузере по sa.ru
 
 
 
