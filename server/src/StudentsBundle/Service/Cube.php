@@ -58,10 +58,9 @@ class Cube
         } else if ($period == "month") {
             $dateCut .= $date["year"] . "," . $date["quarter"] . "," . $date["month"];
         } else if ($period == "day") {
-            $dayDate = $date["day"]["date"];
-            $year  = $dayDate["year"];
-            $month = $dayDate["month"];
-            $day   = $dayDate["day"];
+            $year  = $date["year"];
+            $month = $date["month"];
+            $day   = $date["day"];
             $quarter = intval(($month + 2) / 3);
             $dateCut .= "$year,$quarter,$month,$day";
         }

@@ -38,8 +38,8 @@ export class StudentsListComponent implements OnInit {
   optionsList = {date: false, course: false, status: false};
   dateOptionYear;
   dateOptionQuarter = '1';
-  dateOptionMonth   = '2';
-  dateOptionDay     = '2';
+  dateOptionMonth   = '1';
+  dateOptionDay;
   statusOption      = {admis: false, depart: false, trans: false, grad: false};
   courseOption      = {first: false, second: false, third: false, fourth: false, fifth: false};
 
@@ -103,7 +103,9 @@ export class StudentsListComponent implements OnInit {
         };
       } else if (this.datePeriod === 'День') {
         this.filter['date'] = {
-          'period': 'day', 'day': this.dateOptionDay
+          'period': 'day', 'day': this.dateOptionDay['date']['day'],
+          'month': this.dateOptionDay['date']['month'],
+          'year': this.dateOptionDay['date']['year']
         };
       }
       this.filterDateKeys = Object.keys(this.filter['date']);
